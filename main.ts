@@ -483,13 +483,12 @@ function renderCurrencyList(
           const idx: number = secArr.indexOf(currency);
           if (idx !== -1) secArr.splice(idx, 1);
         }
-        document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${currency.id}"]`)
-            .forEach((btn: HTMLButtonElement): void => {
-              // If the button (or any ancestor) is NOT inside .fixed-container → apply the class
-              if (!btn.closest('.fixed-container')) {
-                btn.classList.toggle('on', currency.isOn);
-              }
-            });
+        const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${currency.id}"]`);
+        toggles.forEach((toggle: HTMLButtonElement): void => {
+          if (!toggle.closest('.fixed-container')) {
+            toggle.classList.toggle('on', currency.isOn);
+          }
+        });
       });
     }
   });
