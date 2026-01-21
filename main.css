@@ -750,6 +750,7 @@ header {
     left: 60px;
     right: 0;
     top: 30px;
+    overflow-x: hidden;
   }
 
   .headline {
@@ -767,11 +768,11 @@ header {
   }
 
   .close-button-cancel {
-    right: -20px;
+    right: -25px;
   }
 
   .apply-changes-button {
-    left: -20px;
+    left: -5px;
   }
 
   .apply-changes-button,
