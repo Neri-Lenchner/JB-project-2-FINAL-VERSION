@@ -495,9 +495,9 @@ function renderSelectedCards() {
     isFixedWindowOpen = true;
     renderCurrencyList(temporaryFixedWindowArray, fixedContainer, temporaryFixedWindowArray, true);
 }
-/* ───────────────────────────────────────────────
+/*
    Search
-─────────────────────────────────────────────── */
+*/
 /**
  * Searches for a currency by symbol and displays its details in a popup panel:
  * - Removes any existing currency monitor
@@ -531,9 +531,9 @@ async function search() {
     document.body.appendChild(monitor);
     mainInput.value = '';
 }
-/* ───────────────────────────────────────────────
+/*
    Utilities
-─────────────────────────────────────────────── */
+ */
 /**
  * Removes all child elements from the pages monitor area,
  * resetting the displayed content to an empty state.

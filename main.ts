@@ -580,9 +580,9 @@ function renderSelectedCards(): void {
   renderCurrencyList(temporaryFixedWindowArray, fixedContainer, temporaryFixedWindowArray, true);
 }
 
-/* ───────────────────────────────────────────────
+/*
    Search
-─────────────────────────────────────────────── */
+*/
 
 /**
  * Searches for a currency by symbol and displays its details in a popup panel:
@@ -623,9 +623,9 @@ async function search(): Promise<void> {
   mainInput!.value = '';
 }
 
-/* ───────────────────────────────────────────────
+/*
    Utilities
-─────────────────────────────────────────────── */
+ */
 
 /**
  * Removes all child elements from the pages monitor area,
