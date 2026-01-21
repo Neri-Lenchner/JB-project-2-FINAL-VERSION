@@ -142,8 +142,8 @@ function renderPage2() {
     const listContainer = document.createElement('div');
     listContainer.className = 'pages-monitor';
     pagesMonitor?.appendChild(listContainer);
-    const currencyList = manager.currencyList;
-    renderCurrencyList(currencyList, listContainer, selectedCurrencies);
+    // const currencyList: Currency[] = manager.currencyList;
+    renderCurrencyList(manager.currencyList, listContainer, selectedCurrencies);
 }
 /**
  * Renders main currency list view (Page 2):
@@ -220,6 +220,13 @@ function formatTimeLabel(e) {
  * - Keeps only the most recent maxPoints data points (sliding window)
  * - Uses formatTimeLabel (x-axis) and addSymbols (y-axis) formatters
  */
+/*
+here I have tried at first to use mySql to manipulate canvas js
+but since it made it harder for me to manipulate the graph I decided eventually
+to get rid of mysql and use canvas js alone.
+I got help from grok and gpt to learn about creating a new CanvasJS.Chart and for creating
+the dataSeries returned objects
+*/
 function startCryptoChart(currency1, currency2, currency3, currency4, currency5, apiKey) {
     const coins = [currency1, currency2, currency3, currency4, currency5].filter(Boolean);
     const colors = ["cyan", "lime", "blue", "gold", "red"];
