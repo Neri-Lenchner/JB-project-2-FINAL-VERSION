@@ -468,16 +468,16 @@ function renderSelectedCards() {
             }
         });
         // Reset unselected currencies
-        manager.currencyList.forEach((c) => {
-            const index = selectedCurrencies.findIndex((s) => s.id === c.id);
+        manager.currencyList.forEach((globalCurrency) => {
+            const index = selectedCurrencies.findIndex((selectedCurrency) => selectedCurrency.id === globalCurrency.id);
             if (index === -1) {
-                c.isOn = false;
+                globalCurrency.isOn = false;
             }
         });
         // Update all toggle buttons on page
-        manager.currencyList.forEach((c) => {
-            document.querySelectorAll(`.toggle-btn[data-currency-id="${c.id}"]`)
-                .forEach((btn) => btn.classList.toggle('on', c.isOn));
+        manager.currencyList.forEach((globalCurrency) => {
+            const toggles = document.querySelectorAll(`.toggle-btn[data-currency-id="${globalCurrency.id}"]`);
+            toggles.forEach((toggle) => toggle.classList.toggle('on', globalCurrency.isOn));
         });
         // Cleanup
         pendingSixth = null;

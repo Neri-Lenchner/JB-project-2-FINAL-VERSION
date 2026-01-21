@@ -546,17 +546,17 @@ function renderSelectedCards(): void {
     });
 
     // Reset unselected currencies
-    manager.currencyList.forEach((c: Currency): void => {
-      const index: number = selectedCurrencies.findIndex((s: Currency): boolean => s.id === c.id);
+    manager.currencyList.forEach((globalCurrency: Currency): void => {
+      const index: number = selectedCurrencies.findIndex((selectedCurrency: Currency): boolean => selectedCurrency.id === globalCurrency.id);
       if (index === -1) {
-        c.isOn = false;
+        globalCurrency.isOn = false;
       }
     });
 
     // Update all toggle buttons on page
-    manager.currencyList.forEach((c: Currency): void => {
-      document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${c.id}"]`)
-          .forEach((btn: HTMLButtonElement): boolean => btn.classList.toggle('on', c.isOn));
+    manager.currencyList.forEach((globalCurrency: Currency): void => {
+      const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${globalCurrency.id}"]`);
+      toggles.forEach((toggle: HTMLButtonElement): boolean => toggle.classList.toggle('on', globalCurrency.isOn));
     });
 
     // Cleanup
