@@ -484,9 +484,9 @@ function renderCurrencyList(
           if (idx !== -1) secArr.splice(idx, 1);
         }
         const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${currency.id}"]`);
-        toggles.forEach((toggle: HTMLButtonElement): void => {
-          if (!toggle.closest('.fixed-container')) {
-            toggle.classList.toggle('on', currency.isOn);
+        toggles.forEach((toggleButton: HTMLButtonElement): void => {
+          if (!toggleButton.closest('.fixed-container')) {
+            toggleButton.classList.toggle('on', currency.isOn);
           }
         });
       });
@@ -555,7 +555,7 @@ function renderSelectedCards(): void {
     // Update all toggle buttons on page
     manager.currencyList.forEach((globalCurrency: Currency): void => {
       const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${globalCurrency.id}"]`);
-      toggles.forEach((toggle: HTMLButtonElement): boolean => toggle.classList.toggle('on', globalCurrency.isOn));
+      toggles.forEach((toggleButton: HTMLButtonElement): boolean => toggleButton.classList.toggle('on', globalCurrency.isOn));
     });
 
     // Cleanup

@@ -416,9 +416,9 @@ function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
                         secArr.splice(idx, 1);
                 }
                 const toggles = document.querySelectorAll(`.toggle-btn[data-currency-id="${currency.id}"]`);
-                toggles.forEach((toggle) => {
-                    if (!toggle.closest('.fixed-container')) {
-                        toggle.classList.toggle('on', currency.isOn);
+                toggles.forEach((toggleButton) => {
+                    if (!toggleButton.closest('.fixed-container')) {
+                        toggleButton.classList.toggle('on', currency.isOn);
                     }
                 });
             });
@@ -476,7 +476,7 @@ function renderSelectedCards() {
         // Update all toggle buttons on page
         manager.currencyList.forEach((globalCurrency) => {
             const toggles = document.querySelectorAll(`.toggle-btn[data-currency-id="${globalCurrency.id}"]`);
-            toggles.forEach((toggle) => toggle.classList.toggle('on', globalCurrency.isOn));
+            toggles.forEach((toggleButton) => toggleButton.classList.toggle('on', globalCurrency.isOn));
         });
         // Cleanup
         pendingSixth = null;
