@@ -353,7 +353,7 @@ function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
             }
             const twoMinutes = 120_000;
             let currencyData = null;
-            const stored = localStorage.getItem(`one-currency[${currency.id}]`);
+            const stored = localStorage.getItem(`one-currency${currency.id}`);
             if (stored) {
                 const parsed = JSON.parse(stored);
                 if (Date.now() - (parsed.timeStamp || 0) < twoMinutes) {

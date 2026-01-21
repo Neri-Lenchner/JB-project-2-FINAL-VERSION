@@ -420,7 +420,7 @@ function renderCurrencyList(
       const twoMinutes = 120_000;
       let currencyData: Currency | null = null;
 
-      const stored: string | null = localStorage.getItem(`one-currency[${currency.id}]`);
+      const stored: string | null = localStorage.getItem(`one-currency${currency.id}`);
       if (stored) {
         const parsed = JSON.parse(stored) as Currency & { timeStamp?: number };
         if (Date.now() - (parsed.timeStamp || 0) < twoMinutes) {

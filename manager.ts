@@ -74,8 +74,8 @@ class Manager {
           `https://api.coingecko.com/api/v3/coins/${id}`
         );
         if (!response.ok) {
-            return null;
             this.hide();
+            return null;
         }
       this.hide();
         const data = await response.json();
