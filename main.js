@@ -407,7 +407,7 @@ function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
                     if (idx !== -1)
                         secArr.splice(idx, 1);
                 }
-                // This is a new feature I have learned here that takes the toggle button and cast it as a generic HTMLElement (so it could be set as the parent if the parent is not the fixed container), it looks for a parent with the css class 'fixed-container' and if it does not find it, all the way up the DOM, it returns null. I had to add it to the project because I wanted to separate the toggles in the fixed container from the rest of the toggles, so that the user could toggle on and off in the fixed window, and it won't affect the toggles outside the fixed-window until user clicks 'approve'.
+                // "parentElemen" is a new feature I have learned here that takes the toggle button and cast it as a generic HTMLElement (so it could be set as the parent if the parent is not the fixed container), it looks for a parent with the css class 'fixed-container' and if it does not find it, all the way up the DOM, it returns null. I had to add it to the project because I wanted to separate the toggles in the fixed container from the rest of the toggles, so that the user could toggle on and off in the fixed window, and it won't affect the toggles outside the fixed-window until user clicks 'approve'.
                 document.querySelectorAll(`.toggle-btn[data-currency-id="${currency.id}"]`)
                     .forEach((btn) => {
                     let el = btn;
