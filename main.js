@@ -101,10 +101,6 @@ liveReportsButton.onclick = () => {
  * (no cleanup, no loading state — assumes search is fast/filter-based)
  */
 searchButton.onclick = () => {
-    /*
-    if (document.querySelector('#chartContainer')) {
-      stopCryptoChart();
-    }*/
     search();
 };
 /**
@@ -127,7 +123,12 @@ const selectedCurrencies = [];
 let pendingSixth = null;
 let temporaryFixedWindowArray = [];
 let isFixedWindowOpen = false;
-// I created 'fixedWindowToggleStates' as a plain object. I am not sure if it would be better if I created an interface for it, but it did not seem crucial to me in this case, so I left it as a plain object eventually
+/*
+  I created 'fixedWindowToggleStates' as a plain object.
+   I am not sure if it would be better if I created an interface for it,
+   but it did not seem crucial to me in this case,
+   so I left it as a plain object eventually.
+*/
 let fixedWindowToggleStates = {};
 /*
    Page rendering functions
@@ -414,14 +415,12 @@ function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
                     if (idx !== -1)
                         secArr.splice(idx, 1);
                 }
-                // "parentElemen" is a new feature I have learned here that takes the toggle button and cast it as a generic HTMLElement (so it could be set as the parent if the parent is not the fixed container), it looks for a parent with the css class 'fixed-container' and if it does not find it, all the way up the DOM, it returns null. I had to add it to the project because I wanted to separate the toggles in the fixed container from the rest of the toggles, so that the user could toggle on and off in the fixed window, and it won't affect the toggles outside the fixed-window until user clicks 'approve'.
                 document.querySelectorAll(`.toggle-btn[data-currency-id="${currency.id}"]`)
                     .forEach((btn) => {
-                    let el = btn;
-                    while (el && !el.classList.contains('fixed-container'))
-                        el = el.parentElement;
-                    if (!el)
+                    // If the button (or any ancestor) is NOT inside .fixed-container → apply the class
+                    if (!btn.closest('.fixed-container')) {
                         btn.classList.toggle('on', currency.isOn);
+                    }
                 });
             });
         }
@@ -444,7 +443,6 @@ function renderSelectedCards() {
     if (selectedCurrencies.length !== 5 || !pendingSixth)
         return;
     temporaryFixedWindowArray = selectedCurrencies.map((c) => ({ ...c, isOn: true }));
-    // Reset and initialize toggle states
     fixedWindowToggleStates = {};
     temporaryFixedWindowArray.forEach((c) => {
         fixedWindowToggleStates[c.id] = true;
@@ -471,7 +469,8 @@ function renderSelectedCards() {
         });
         // Reset unselected currencies
         manager.currencyList.forEach((c) => {
-            if (selectedCurrencies.findIndex((s) => s.id === c.id) === -1) {
+            const index = selectedCurrencies.findIndex((s) => s.id === c.id);
+            if (index === -1) {
                 c.isOn = false;
             }
         });
