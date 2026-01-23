@@ -216,7 +216,7 @@ This new path continues to inspire me, and I find the world of web development t
 }
 
 /*
-   Chart logic
+   Chart logic stuff
 */
 
 let chart: any;
@@ -257,13 +257,6 @@ function formatTimeLabel(e: { value: Date }): string {
  * - Keeps only the most recent maxPoints data points (sliding window)
  * - Uses formatTimeLabel (x-axis) and addSymbols (y-axis) formatters
  */
-/*
-here I have tried at first to use mySql to manipulate canvas js
-but since it made it harder for me to manipulate the graph I decided eventually
-to get rid of mysql and use canvas js alone.
-I got help from grok and gpt to learn about creating a new CanvasJS.Chart and for creating
-the dataSeries returned objects
-*/
 function startCryptoChart(
     coin1: string,
     coin2: string,
@@ -352,7 +345,7 @@ function stopCryptoChart(): void {
 }
 
 /*
-   Collapser (More Info)
+   Collapser
  */
 
 /**
@@ -375,7 +368,7 @@ function createCollapserContainer(currency: Currency | null): string {
 }
 
 /*
-   Currency card rendering
+   Currency card rendering stuff
 */
 
 /**
@@ -551,7 +544,6 @@ function renderSelectedCards(): void {
       }
     });
 
-    // Reset unselected currencies
     manager.currencyList.forEach((globalCurrency: Currency): void => {
       const index: number = selectedCurrencies.findIndex((selectedCurrency: Currency): boolean => selectedCurrency.id === globalCurrency.id);
       if (index === -1) {
@@ -559,13 +551,11 @@ function renderSelectedCards(): void {
       }
     });
 
-    // Update all toggle buttons on page
     manager.currencyList.forEach((globalCurrency: Currency): void => {
       const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${globalCurrency.id}"]`);
       toggles.forEach((toggleButton: HTMLButtonElement): boolean => toggleButton.classList.toggle('on', globalCurrency.isOn));
     });
 
-    // Cleanup
     pendingSixth = null;
     temporaryFixedWindowArray = [];
     fixedWindowToggleStates = {};
