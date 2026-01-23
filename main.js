@@ -81,7 +81,7 @@ liveReportsButton.onclick = () => {
     setTimeout(manager.hide, 2000);
     stopCryptoChart();
     clearPagesFromMonitor();
-    const symbols = selectedCurrencies.map((c) => c.symbol.toUpperCase());
+    const symbols = selectedCurrencies.map((selectedCurrency) => selectedCurrency.symbol.toUpperCase());
     const fiveSymbols = [
         symbols[0] || "",
         symbols[1] || "",
@@ -143,7 +143,6 @@ function renderPage2() {
     const listContainer = document.createElement('div');
     listContainer.className = 'pages-monitor';
     pagesMonitor?.appendChild(listContainer);
-    // const currencyList: Currency[] = manager.currencyList;
     renderCurrencyList(manager.currencyList, listContainer, selectedCurrencies);
 }
 /**
