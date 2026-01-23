@@ -193,12 +193,12 @@ const maxPoints = 20;
  * - Preserves readable precision using CanvasJS formatting
  * - Prefixes the value with a dollar sign
  */
-function addSymbols(e) {
+function addSymbols(valueObject) {
     const suffixes = ["", "K", "M", "B"];
-    let order = Math.max(Math.floor(Math.log(Math.abs(e.value)) / Math.log(1000)), 0);
+    let order = Math.max(Math.floor(Math.log(Math.abs(valueObject.value)) / Math.log(1000)), 0);
     if (order > suffixes.length - 1)
         order = suffixes.length - 1;
-    const formattedValue = CanvasJS.formatNumber(e.value / Math.pow(1000, order));
+    const formattedValue = CanvasJS.formatNumber(valueObject.value / Math.pow(1000, order));
     return "$" + formattedValue + suffixes[order];
 }
 /**
@@ -207,10 +207,10 @@ function addSymbols(e) {
  * Uses CanvasJS.formatNumber for locale-aware decimals/commas
  */
 function formatTimeLabel(e) {
-    const h = String(e.value.getHours()).padStart(2, "0");
-    const m = String(e.value.getMinutes()).padStart(2, "0");
-    const s = String(e.value.getSeconds()).padStart(2, "0");
-    return `${h}:${m}:${s}`;
+    const hours = String(e.value.getHours()).padStart(2, "0");
+    const minutes = String(e.value.getMinutes()).padStart(2, "0");
+    const seconds = String(e.value.getSeconds()).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
 }
 /**
  * Starts live multi-line price chart for up to 5 cryptocurrencies:
@@ -227,8 +227,8 @@ to get rid of mysql and use canvas js alone.
 I got help from grok and gpt to learn about creating a new CanvasJS.Chart and for creating
 the dataSeries returned objects
 */
-function startCryptoChart(currency1, currency2, currency3, currency4, currency5, apiKey) {
-    const coins = [currency1, currency2, currency3, currency4, currency5].filter(Boolean);
+function startCryptoChart(coin1, coin2, coin3, coin4, coin5, apiKey) {
+    const coins = [coin1, coin2, coin3, coin4, coin5].filter(Boolean);
     const colors = ["cyan", "lime", "blue", "gold", "red"];
     const dataSeries = coins.map((coin, i) => ({
         type: "spline",
@@ -243,7 +243,10 @@ function startCryptoChart(currency1, currency2, currency3, currency4, currency5,
         animationEnabled: false,
         theme: "dark1",
         backgroundColor: "black",
-        title: { text: "Live Crypto Prices (USD)", fontColor: "mediumspringgreen" },
+        title: {
+            text: "Live Crypto Prices (USD)",
+            fontColor: "mediumspringgreen"
+        },
         axisX: {
             valueFormatString: "HH:mm:ss",
             labelFormatter: formatTimeLabel,
@@ -256,8 +259,12 @@ function startCryptoChart(currency1, currency2, currency3, currency4, currency5,
             labelFontColor: "mediumspringgreen",
             maximumLabels: 7
         },
-        toolTip: { shared: true },
-        legend: { fontColor: "mediumspringgreen", fontSize: 13 },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            fontColor: "mediumspringgreen", fontSize: 13
+        },
         data: dataSeries
     });
     chart.render();
@@ -325,7 +332,7 @@ function createCollapserContainer(currency) {
  *   • Fixed window mode: only updates local toggle state (no selection change)
  * - Syncs toggle state visually across all matching buttons
  */
-function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
+function renderCurrencyList(arr, monitor, secondArr, isFixedWindow = false) {
     arr.forEach((currency) => {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -370,6 +377,7 @@ function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
             if (!currencyData) {
                 currencyData = await manager.getOneCurrency(currency.id);
                 if (currencyData) {
+                    // (currencyData as any).timeStamp = Date.now();
                     currencyData.timeStamp = Date.now();
                     manager.saveDataLocally(currencyData);
                 }
@@ -406,13 +414,13 @@ function renderCurrencyList(arr, monitor, secArr, isFixedWindow = false) {
                 }
                 currency.isOn = !currency.isOn;
                 if (currency.isOn) {
-                    if (!secArr.includes(currency))
-                        secArr.push(currency);
+                    if (!secondArr.includes(currency))
+                        secondArr.push(currency);
                 }
                 else {
-                    const idx = secArr.indexOf(currency);
+                    const idx = secondArr.indexOf(currency);
                     if (idx !== -1)
-                        secArr.splice(idx, 1);
+                        secondArr.splice(idx, 1);
                 }
                 const toggles = document.querySelectorAll(`.toggle-btn[data-currency-id="${currency.id}"]`);
                 toggles.forEach((toggleButton) => {

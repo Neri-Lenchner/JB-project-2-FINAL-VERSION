@@ -229,11 +229,11 @@ const maxPoints = 20;
  * - Preserves readable precision using CanvasJS formatting
  * - Prefixes the value with a dollar sign
  */
-function addSymbols(e: { value: number }): string {
+function addSymbols(valueObject: { value: number }): string {
   const suffixes: string[] = ["", "K", "M", "B"];
-  let order: number = Math.max(Math.floor(Math.log(Math.abs(e.value)) / Math.log(1000)), 0);
+  let order: number = Math.max(Math.floor(Math.log(Math.abs(valueObject.value)) / Math.log(1000)), 0);
   if (order > suffixes.length - 1) order = suffixes.length - 1;
-  const formattedValue: any = CanvasJS.formatNumber(e.value / Math.pow(1000, order));
+  const formattedValue: any = CanvasJS.formatNumber(valueObject.value / Math.pow(1000, order));
   return "$" + formattedValue + suffixes[order];
 }
 
@@ -243,10 +243,10 @@ function addSymbols(e: { value: number }): string {
  * Uses CanvasJS.formatNumber for locale-aware decimals/commas
  */
 function formatTimeLabel(e: { value: Date }): string {
-  const h: string = String(e.value.getHours()).padStart(2, "0");
-  const m: string = String(e.value.getMinutes()).padStart(2, "0");
-  const s: string = String(e.value.getSeconds()).padStart(2, "0");
-  return `${h}:${m}:${s}`;
+  const hours: string = String(e.value.getHours()).padStart(2, "0");
+  const minutes: string = String(e.value.getMinutes()).padStart(2, "0");
+  const seconds: string = String(e.value.getSeconds()).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 /**
@@ -265,14 +265,14 @@ I got help from grok and gpt to learn about creating a new CanvasJS.Chart and fo
 the dataSeries returned objects
 */
 function startCryptoChart(
-    currency1: string,
-    currency2: string,
-    currency3: string,
-    currency4: string,
-    currency5: string,
+    coin1: string,
+    coin2: string,
+    coin3: string,
+    coin4: string,
+    coin5: string,
     apiKey?: string
 ): void {
-  const coins: string[] = [currency1, currency2, currency3, currency4, currency5].filter(Boolean);
+  const coins: string[] = [coin1, coin2, coin3, coin4, coin5].filter(Boolean);
   const colors: string[] = ["cyan", "lime", "blue", "gold", "red"];
 
   const dataSeries = coins.map((coin: string, i: number) => ({
@@ -289,7 +289,10 @@ function startCryptoChart(
     animationEnabled: false,
     theme: "dark1",
     backgroundColor: "black",
-    title: { text: "Live Crypto Prices (USD)", fontColor: "mediumspringgreen" },
+    title: {
+      text: "Live Crypto Prices (USD)",
+      fontColor: "mediumspringgreen"
+    },
     axisX: {
       valueFormatString: "HH:mm:ss",
       labelFormatter: formatTimeLabel,
@@ -302,8 +305,12 @@ function startCryptoChart(
       labelFontColor: "mediumspringgreen",
       maximumLabels: 7
     },
-    toolTip: { shared: true },
-    legend: { fontColor: "mediumspringgreen", fontSize: 13 },
+    toolTip: {
+      shared: true
+    },
+    legend: {
+      fontColor: "mediumspringgreen", fontSize: 13
+    },
     data: dataSeries
   });
 
@@ -383,7 +390,7 @@ function createCollapserContainer(currency: Currency | null): string {
 function renderCurrencyList(
     arr: Currency[],
     monitor: HTMLElement | null,
-    secArr: Currency[],
+    secondArr: Currency[],
     isFixedWindow: boolean = false
 ): void {
   arr.forEach((currency: Currency): void => {
@@ -437,7 +444,8 @@ function renderCurrencyList(
       if (!currencyData) {
         currencyData = await manager.getOneCurrency(currency.id);
         if (currencyData) {
-          (currencyData as any).timeStamp = Date.now();
+          // (currencyData as any).timeStamp = Date.now();
+          currencyData.timeStamp = Date.now();
           manager.saveDataLocally(currencyData);
         }
       }
@@ -477,10 +485,10 @@ function renderCurrencyList(
         currency.isOn = !currency.isOn;
 
         if (currency.isOn) {
-          if (!secArr.includes(currency)) secArr.push(currency)
+          if (!secondArr.includes(currency)) secondArr.push(currency)
         } else {
-          const idx: number = secArr.indexOf(currency);
-          if (idx !== -1) secArr.splice(idx, 1);
+          const idx: number = secondArr.indexOf(currency);
+          if (idx !== -1) secondArr.splice(idx, 1);
         }
         const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${currency.id}"]`);
         toggles.forEach((toggleButton: HTMLButtonElement): void => {
