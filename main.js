@@ -456,10 +456,10 @@ function renderSelectedCards() {
     applyBtn.textContent = 'Apply';
     applyBtn.addEventListener('click', () => {
         selectedCurrencies.length = 0;
-        temporaryFixedWindowArray.forEach((temp) => {
-            const isOn = fixedWindowToggleStates[temp.id] ?? false;
+        temporaryFixedWindowArray.forEach((temporaryCurrency) => {
+            const isOn = fixedWindowToggleStates[temporaryCurrency.id] ?? false;
             if (isOn && selectedCurrencies.length < 5) {
-                const original = manager.currencyList.find((c) => c.id === temp.id);
+                const original = manager.currencyList.find((currency) => currency.id === temporaryCurrency.id);
                 if (original) {
                     original.isOn = true;
                     selectedCurrencies.push(original);

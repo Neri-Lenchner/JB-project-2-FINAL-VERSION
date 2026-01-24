@@ -531,10 +531,10 @@ function renderSelectedCards(): void {
   applyBtn.addEventListener('click', (): void => {
     selectedCurrencies.length = 0;
 
-    temporaryFixedWindowArray.forEach((temp: Currency): void => {
-      const isOn: boolean = fixedWindowToggleStates[temp.id] ?? false;
+    temporaryFixedWindowArray.forEach((temporaryCurrency: Currency): void => {
+      const isOn: boolean = fixedWindowToggleStates[temporaryCurrency.id] ?? false;
       if (isOn && selectedCurrencies.length < 5) {
-        const original: Currency | undefined = manager.currencyList.find((c: Currency): boolean => c.id === temp.id);
+        const original: Currency | undefined = manager.currencyList.find((currency: Currency): boolean => currency.id === temporaryCurrency.id);
         if (original) {
           original.isOn = true;
           selectedCurrencies.push(original);
