@@ -369,6 +369,7 @@ function createCollapserContainer(currency: Currency | null): string {
 /*
    Currency card rendering stuff
 */
+
 /**
  * Renders list of currency cards into the monitor element:
  * - Creates card with symbol, name, "More Info" button and toggle button

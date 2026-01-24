@@ -1,6 +1,7 @@
 import {Currency} from './currency.model.js';
 
 class Manager {
+
     /**
      * Creates a new Manager instance to handle cryptocurrency data fetching and caching.
      * @param {Currency[]} [currencyList=[]] - Initial list of currencies (optional, defaults to empty array).
@@ -15,7 +16,6 @@ class Manager {
      * Shows a loading indicator during the request and hides it when done.
      * @returns {Promise<void>}
      */
-
     public async getCurrencyList(): Promise<void> {
 
         // 'shitCoinsUrl' is what it is- "more is less", I left it here but as a second option //
@@ -66,7 +66,6 @@ class Manager {
      * @param {string} id - The CoinGecko ID of the currency (e.g. "bitcoin", "ethereum")
      * @returns {Promise<Currency | null>} The detailed Currency object or null if fetch fails
      */
-
     public async getOneCurrency(id: string): Promise<Currency | null> {
 
         this.show();
@@ -101,7 +100,6 @@ class Manager {
      * @returns {Promise<Record<string, { USD: number }> | undefined>}
      *          Object mapping symbol → { USD: price } or undefined on error
      */
-
     async getFiveCurrencies(
         coins: string[],
         apiKey?: string
@@ -159,7 +157,6 @@ class Manager {
      * Removes the loading animation from the DOM if it exists.
      * Called after successful or failed fetch operations to hide the loader.
      */
-
     public hide(): void {
       document.querySelector('.progress-bar-container')?.remove();
      }
