@@ -124,9 +124,9 @@ let pendingSixth = null;
 let temporaryFixedWindowArray = [];
 let isFixedWindowOpen = false;
 /*
-  I created 'fixedWindowToggleStates' as a plain object.
+  I created 'fixedWindowToggleStates' and 'data' as plain objects (Record).
    I am not sure if it would be better if I created an interface for it,
-   but it did not seem crucial to me in this case,
+   but it did not seem crucial to me in these cases,
    so I left it as a plain object eventually.
 */
 let fixedWindowToggleStates = {};
@@ -441,7 +441,7 @@ function renderSelectedCards() {
     }
     if (selectedCurrencies.length !== 5 || !pendingSixth)
         return;
-    temporaryFixedWindowArray = selectedCurrencies.map((c) => ({ ...c, isOn: true }));
+    temporaryFixedWindowArray = selectedCurrencies.map((currency) => ({ ...currency, isOn: true }));
     fixedWindowToggleStates = {};
     temporaryFixedWindowArray.forEach((c) => {
         fixedWindowToggleStates[c.id] = true;

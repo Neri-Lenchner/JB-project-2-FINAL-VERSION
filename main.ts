@@ -146,9 +146,9 @@ let temporaryFixedWindowArray: Currency[] = [];
 let isFixedWindowOpen: boolean = false;
 
 /*
-  I created 'fixedWindowToggleStates' as a plain object.
+  I created 'fixedWindowToggleStates' and 'data' as plain objects (Record).
    I am not sure if it would be better if I created an interface for it,
-   but it did not seem crucial to me in this case,
+   but it did not seem crucial to me in these cases,
    so I left it as a plain object eventually.
 */
 let fixedWindowToggleStates: Record<string, boolean> = {};
@@ -324,7 +324,6 @@ function startCryptoChart(
           }
         }
       });
-
       chart.render();
     } catch (err) {
       console.error("Error fetching crypto prices:", err);
@@ -370,7 +369,6 @@ function createCollapserContainer(currency: Currency | null): string {
 /*
    Currency card rendering stuff
 */
-
 /**
  * Renders list of currency cards into the monitor element:
  * - Creates card with symbol, name, "More Info" button and toggle button
@@ -512,8 +510,8 @@ function renderSelectedCards(): void {
 
   if (selectedCurrencies.length !== 5 || !pendingSixth) return;
 
-  temporaryFixedWindowArray = selectedCurrencies.map((c: Currency) =>
-      ({ ...c, isOn: true }));
+  temporaryFixedWindowArray = selectedCurrencies.map((currency: Currency) =>
+      ({ ...currency, isOn: true }));
 
   fixedWindowToggleStates = {};
   temporaryFixedWindowArray.forEach((c: Currency): void => {

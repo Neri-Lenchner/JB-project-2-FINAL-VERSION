@@ -15,7 +15,7 @@ class Manager {
      * @returns {Promise<void>}
      */
     async getCurrencyList() {
-        // 'shitCoinsUrl' is what it is- "more is less", I left it there but as a second option //
+        // 'shitCoinsUrl' is what it is- "more is less", I left it here but as a second option //
         const shitCoinsUrl = 'https://api.coingecko.com/api/v3/coins/list';
         const goodCoinsUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1';
         this.show();
@@ -63,13 +63,14 @@ class Manager {
         const url = apiKey
             ? `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${coins.join(',')}&tsyms=USD&api_key=${apiKey}`
             : `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${coins.join(',')}&tsyms=USD`;
-        const res = await fetch(url);
-        if (!res.ok) {
-            console.error("Failed to fetch prices:", res.status, res.statusText);
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error("Failed to fetch prices:", response.status, response.statusText);
             return undefined;
         }
-        const data = await res.json();
-        return data;
+        // const data: Record<string, { USD: number }> = await response.json();
+        // return data;
+        return await response.json();
     }
     /**
      * Saves a single Currency object's data to localStorage for quick retrieval later.
