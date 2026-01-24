@@ -126,7 +126,6 @@ class Manager {
      * Key format: `one-currency[bitcoin]`, `one-currency[ethereum]`, etc.
      * @param {Currency} oneCurrency - The Currency object to store
      */
-
     public saveDataLocally(oneCurrency: Currency | any): void {
       localStorage.setItem(`one-currency${oneCurrency?.id}`, JSON.stringify(oneCurrency));
     }
