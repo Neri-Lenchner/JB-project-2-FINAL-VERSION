@@ -51,7 +51,7 @@ setTimeout((): void => {
    Navigation Button Handlers
  */
 
-/**
+/** homeButton.onclick:
  * Home button click handler:
  * - Stops crypto chart if it's active
  * - Clears current page content
@@ -74,7 +74,7 @@ homeButton.onclick = (): void => {
   }
 };
 
-/**
+/** liveReportsButton.onclick:
  * Live Reports button click handler:
  * - Shows alert if no currencies selected
  * - Shows loading indicator for 2 seconds
@@ -113,7 +113,7 @@ liveReportsButton.onclick = (): void => {
   startCryptoChart(fiveSymbols[0], fiveSymbols[1], fiveSymbols[2], fiveSymbols[3], fiveSymbols[4], myApiKey);
 };
 
-/**
+/** searchButton.onclick:
  * Search button click handler:
  * Directly triggers the search() function
  * (no cleanup, no loading state — assumes search is fast/filter-based)
@@ -122,7 +122,7 @@ searchButton.onclick = (): void => {
   search();
 };
 
-/**
+/** aboutButton.onclick:
  * About button click handler:
  * - Stops crypto chart if active
  * - Clears current page content
@@ -157,7 +157,7 @@ let fixedWindowToggleStates: Record<string, boolean> = {};
    Page rendering functions
 */
 
-/**
+/** function renderPage2()?:
  * Renders the main currency list page:
  * - Creates a container for the currency cards
  * - Appends it to the pages monitor
@@ -170,7 +170,7 @@ function renderPage2(): void {
   renderCurrencyList(manager.currencyList, listContainer, selectedCurrencies);
 }
 
-/**
+/** function renderPage3():
  * Renders main currency list view (Page 2):
  * - Creates container with class 'pages-monitor'
  * - Appends it to pagesMonitor
@@ -223,7 +223,7 @@ let chart: any;
 let updateIntervalId: number | null = null;
 const maxPoints = 20;
 
-/**
+/** function addSymbols():
  * Formats large numeric values with currency symbols and suffixes:
  * - Converts numbers to compact form (K, M, B)
  * - Preserves readable precision using CanvasJS formatting
@@ -237,7 +237,7 @@ function addSymbols(valueObject: { value: number }): string {
   return "$" + formattedValue + suffixes[order];
 }
 
-/**
+/** function formatTimeLabel():
  * Formats number to compact currency string with $ + K/M/B suffix
  * Examples: 1234 → "$1.23K",  2500000 → "$2.5M",  42 → "$42"
  * Uses CanvasJS.formatNumber for locale-aware decimals/commas
@@ -249,7 +249,7 @@ function formatTimeLabel(e: { value: Date }): string {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-/**
+/** function startCryptoChart():
  * Starts live multi-line price chart for up to 5 cryptocurrencies:
  * - Creates CanvasJS spline chart with dark theme
  * - Assigns fixed colors to each coin
@@ -331,7 +331,7 @@ function startCryptoChart(
   }, 2000);
 }
 
-/**
+/** function stopCryptoChart():
  * Stops the live crypto chart updates:
  * - Clears the price-fetching interval if active
  * - Resets updateIntervalId to null
@@ -347,7 +347,7 @@ function stopCryptoChart(): void {
    Collapser
  */
 
-/**
+/** function createCollapserContainer():
  * Creates HTML string for a collapsible/expandable currency info panel:
  * - Shows coin image (large version if available, fallback to placeholder)
  * - Displays current price in USD, EUR, and ILS
@@ -370,7 +370,7 @@ function createCollapserContainer(currency: Currency | null): string {
    Currency card rendering stuff
 */
 
-/**
+/** function renderCurrencyList():
  * Renders list of currency cards into the monitor element:
  * - Creates card with symbol, name, "More Info" button and toggle button
  * - "More Info" → shows/hides price panel (USD/EUR/ILS) with 2-minute cache
@@ -497,7 +497,7 @@ function renderCurrencyList(
    Fixed window stuff
 */
 
-/**
+/** function renderSelectedCards():
  * Opens a fixed selection window when the user tries to choose more than 5 currencies:
  * - Displays the currently selected 5 currencies
  * - Lets the user toggle which ones stay active
@@ -585,7 +585,7 @@ function renderSelectedCards(): void {
    Search
 */
 
-/**
+/** function search():
  * Searches for a currency by symbol and displays its details in a popup panel:
  * - Removes any existing currency monitor
  * - Validates the user input
@@ -628,7 +628,7 @@ async function search(): Promise<void> {
    Utilities
  */
 
-/**
+/** function clearPagesFromMonitor():
  * Removes all child elements from the pages monitor area,
  * resetting the displayed content to an empty state.
  */
@@ -636,7 +636,7 @@ function clearPagesFromMonitor(): void {
   pagesMonitor!.innerHTML = '';
 }
 
-/**
+/** window.addEventListener:
  * Initializes the application on page load:
  * - Fetches the currency list from the API
  * - Renders the main currencies page
