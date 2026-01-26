@@ -22,17 +22,20 @@ declare class Manager {
      * @returns {Promise<Currency | null>} The detailed Currency object or null if fetch fails
      */
     getOneCurrency(id: string): Promise<Currency | null>;
-    /** getFiveCurrencies():
-     * Fetches current USD prices for up to 5 cryptocurrencies using CryptoCompare API.
-     * Supports optional API key for higher rate limits / reliability.
-     * @param {string[]} coins - Array of currency symbols (e.g. ["BTC", "ETH", "ADA"])
-     * @param {string} [apiKey] - Optional CryptoCompare API key
-     * @returns {Promise<Record<string, { USD: number }> | undefined>}
-     *          Object mapping symbol → { USD: price } or undefined on error
+    /**
+     * Fetches current USD prices for cryptocurrencies using the CryptoCompare API.
+     *
+     * @param coins - Array of cryptocurrency symbols (e.g. ["BTC", "ETH", "ADA"])
+     * @param apiKey - Optional CryptoCompare API key (recommended for better rate limits)
+     * @returns Promise that resolves to price data object in the format
+     *          `{ [coin: string]: { USD: number } }`
+     *          or `undefined` if the request fails
      */
-    getFiveCurrencies(coins: string[], apiKey?: string): Promise<Record<string, {
-        USD: number;
-    }> | undefined>;
+    getFiveCurrencies(coins: string[], apiKey?: string): Promise<{
+        [key: string]: {
+            USD: number;
+        };
+    } | undefined>;
     /** saveDataLocally():
      * Saves a single Currency object's data to localStorage for quick retrieval later.
      * Used mainly to cache detailed single-currency data (prices + image) for ~2 minutes.
@@ -43,7 +46,7 @@ declare class Manager {
     /** show():
      * Displays a full-screen loading animation (orbiting currency symbols around a dollar sign).
      * Only adds the loader if it doesn't already exist in the DOM.
-     * Called automatically before most fetch operations.
+     * Called automatically before fetch operations.
      */
     show(): void;
     /** hide():

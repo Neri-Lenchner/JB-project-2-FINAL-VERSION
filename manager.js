@@ -51,13 +51,14 @@ class Manager {
         const newCurrency = new Currency(data.id, data.symbol, data.name, false, data.image, data.market_data.current_price.usd, data.market_data.current_price.eur, data.market_data.current_price.ils, data.timeStamp);
         return newCurrency;
     }
-    /** getFiveCurrencies():
-     * Fetches current USD prices for up to 5 cryptocurrencies using CryptoCompare API.
-     * Supports optional API key for higher rate limits / reliability.
-     * @param {string[]} coins - Array of currency symbols (e.g. ["BTC", "ETH", "ADA"])
-     * @param {string} [apiKey] - Optional CryptoCompare API key
-     * @returns {Promise<Record<string, { USD: number }> | undefined>}
-     *          Object mapping symbol → { USD: price } or undefined on error
+    /**
+     * Fetches current USD prices for cryptocurrencies using the CryptoCompare API.
+     *
+     * @param coins - Array of cryptocurrency symbols (e.g. ["BTC", "ETH", "ADA"])
+     * @param apiKey - Optional CryptoCompare API key (recommended for better rate limits)
+     * @returns Promise that resolves to price data object in the format
+     *          `{ [coin: string]: { USD: number } }`
+     *          or `undefined` if the request fails
      */
     async getFiveCurrencies(coins, apiKey) {
         const url = apiKey
@@ -68,8 +69,6 @@ class Manager {
             console.error("Failed to fetch prices:", response.status, response.statusText);
             return undefined;
         }
-        // const data: Record<string, { USD: number }> = await response.json();
-        // return data;
         return await response.json();
     }
     /** saveDataLocally():
@@ -84,7 +83,7 @@ class Manager {
     /** show():
      * Displays a full-screen loading animation (orbiting currency symbols around a dollar sign).
      * Only adds the loader if it doesn't already exist in the DOM.
-     * Called automatically before most fetch operations.
+     * Called automatically before fetch operations.
      */
     show() {
         if (document.querySelector('.progress-bar-container'))
