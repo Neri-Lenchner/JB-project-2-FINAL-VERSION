@@ -125,7 +125,7 @@ let temporaryFixedWindowArray = [];
 let isFixedWindowOpen = false;
 /*
   I created 'fixedWindowToggleStates' and 'data' as plain objects (Record).
-   I am not sure if it would be better if I created an interface for it,
+   I am not sure if it would be better to create an interface for it,
    but it did not seem crucial to me in these cases,
    so I left it as a plain object eventually.
 */
@@ -370,7 +370,6 @@ function renderCurrencyList(arr, monitor, secondArr, isFixedWindow = false) {
             if (!currencyData) {
                 currencyData = await manager.getOneCurrency(currency.id);
                 if (currencyData) {
-                    // (currencyData as any).timeStamp = Date.now();
                     currencyData.timeStamp = Date.now();
                     manager.saveDataLocally(currencyData);
                 }

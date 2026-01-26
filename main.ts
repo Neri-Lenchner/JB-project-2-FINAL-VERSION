@@ -147,7 +147,7 @@ let isFixedWindowOpen: boolean = false;
 
 /*
   I created 'fixedWindowToggleStates' and 'data' as plain objects (Record).
-   I am not sure if it would be better if I created an interface for it,
+   I am not sure if it would be better to create an interface for it,
    but it did not seem crucial to me in these cases,
    so I left it as a plain object eventually.
 */
@@ -432,16 +432,13 @@ function renderCurrencyList(
           currencyData = parsed;
         }
       }
-
       if (!currencyData) {
         currencyData = await manager.getOneCurrency(currency.id);
         if (currencyData) {
-          // (currencyData as any).timeStamp = Date.now();
           currencyData.timeStamp = Date.now();
           manager.saveDataLocally(currencyData);
         }
       }
-
       collapser.innerHTML = createCollapserContainer(currencyData);
     });
 
@@ -451,9 +448,7 @@ function renderCurrencyList(
       if (!(currency.id in fixedWindowToggleStates)) {
         fixedWindowToggleStates[currency.id] = currency.isOn;
       }
-
       toggleBtn?.classList.toggle('on', fixedWindowToggleStates[currency.id] ?? false);
-
       toggleBtn?.addEventListener('click', (): void => {
         if (!cardContainer.closest('.fixed-container')) return;
         if (!isFixedWindowOpen) return;
@@ -467,15 +462,12 @@ function renderCurrencyList(
       toggleBtn?.addEventListener('click', (): void => {
         if (isFixedWindowOpen) return;
         if (cardContainer.closest('.fixed-container')) return;
-
         if (!currency.isOn && selectedCurrencies.length === 5 && !isFixedWindowOpen) {
           pendingSixth = currency;
           renderSelectedCards();
           return;
         }
-
         currency.isOn = !currency.isOn;
-
         if (currency.isOn) {
           if (!secondArr.includes(currency)) secondArr.push(currency)
         } else {
@@ -508,9 +500,7 @@ function renderSelectedCards(): void {
   if (isFixedWindowOpen || document.querySelector('.fixed-container')) {
     return;
   }
-
   if (selectedCurrencies.length !== 5 || !pendingSixth) return;
-
   temporaryFixedWindowArray = selectedCurrencies.map((currency: Currency) =>
       ({ ...currency, isOn: true }));
 
@@ -521,11 +511,9 @@ function renderSelectedCards(): void {
 
   const fixedContainer: HTMLDivElement = document.createElement('div');
   fixedContainer.className = 'fixed-container';
-
   const headline: HTMLDivElement = document.createElement('div');
   headline.className = 'headline';
   headline.textContent = 'You can only use 5 currencies';
-
   const applyBtn: HTMLButtonElement = document.createElement('button');
   applyBtn.className = 'apply-changes-button';
   applyBtn.textContent = 'Apply';
@@ -554,7 +542,7 @@ function renderSelectedCards(): void {
       const toggles: NodeListOf<HTMLButtonElement> = document.querySelectorAll<HTMLButtonElement>(`.toggle-btn[data-currency-id="${globalCurrency.id}"]`);
       toggles.forEach((toggleButton: HTMLButtonElement): boolean => toggleButton.classList.toggle('on', globalCurrency.isOn));
     });
-
+    
     pendingSixth = null;
     temporaryFixedWindowArray = [];
     fixedWindowToggleStates = {};
