@@ -765,6 +765,15 @@ header {
     scale: 0.45;
     left: -101px;
     top: 660px;
+    text-align: left;
+  }
+
+  .message-container {
+    text-align: left;
+    margin-left: 40px;
+    color: white;
+    font-size: 20px;
+    padding: 0;
   }
 
   .close-button-cancel {
