@@ -73,6 +73,7 @@ homeButton.onclick = () => {
  * - Starts live price chart for up to 5 selected currencies
  */
 liveReportsButton.onclick = () => {
+    container.scrollTop = 590;
     if (selectedCurrencies.length === 0) {
         alert('Please select at least one currency');
         return;
@@ -110,6 +111,7 @@ searchButton.onclick = () => {
  * - Renders the "About Me" page (page 3)
  */
 aboutButton.onclick = () => {
+    container.scrollTop = 590;
     if (document.querySelector('#chartContainer')) {
         stopCryptoChart();
     }
