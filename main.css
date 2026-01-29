@@ -611,7 +611,6 @@ header {
     width: 100%;
   }
 
-  /* Title */
   .title {
     font-size: 3.2rem !important;
     line-height: 1.1;
@@ -627,7 +626,6 @@ header {
     word-spacing: 0.8rem;
   }
 
-  /* Centered navigation */
   .nav-container {
     display: flex !important;
     flex-direction: column !important;
@@ -666,7 +664,6 @@ header {
     margin-top: 20px !important;
   }
 
-  /* CARDS */
   .pages-monitor {
     display: flex !important;
     flex-direction: column !important;
@@ -792,7 +789,6 @@ header {
     scale: 0.7;
   }
 
-  /* Live Chart - Mobile & Tablet */
   #chartContainer {
     height: 50vh;
     width: 95vw;
