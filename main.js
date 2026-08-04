@@ -11,6 +11,10 @@ const container = document.getElementById('scroll-container');
 /**
  * Navigation and action buttons
  */
+/**
+ * CryptoCompare API key
+ */
+const myApiKey = '785e25aa48363b73d265706d01aaf5b730d0f78a58578a8ab52f211ae73e2293';
 const searchButton = document.querySelector('#search-button');
 const aboutButton = document.querySelector('#about-button');
 const homeButton = document.querySelector('#home-button');
@@ -19,10 +23,6 @@ const liveReportsButton = document.querySelector('#live-reports-button');
  * Main search input field
  */
 const mainInput = document.querySelector('#main-input');
-/**
- * CryptoCompare API key
- */
-const myApiKey = '785e25aa48363b73d265706d01aaf5b730d0f78a58578a8ab52f211ae73e2293';
 /**
  * Enter key in main input triggers search
  */
